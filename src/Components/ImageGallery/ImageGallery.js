@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import ImageGalleryItem from './ImageGalleryItem';
-import API from './apiService';
+import API from '../../apiService';
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Modal from './Modal';
@@ -62,9 +62,11 @@ class ImageGallery extends Component {
             showModal: !showModal
         }));
     }
-    showImage = id => {
+    showImage = data => {
+        const id = data.target.id;
         const images = this.state.rezSearch;
-        const imagesId = images.map(e => e.id);
+        const imagesId = images.map(e => String(e.id));
+        
         let i = imagesId.indexOf(id);
         this.setState({
             activeImgIndex: i,
@@ -80,7 +82,7 @@ class ImageGallery extends Component {
         this.setState({activeImgIndex: i});
     };
     render() {
-        const { rezSearch, status, error , showModal , activeImgIndex} = this.state;
+        const { rezSearch, status, error, showModal, activeImgIndex } = this.state;
         if (status === "idle") {
             return <div></div>;
         }
@@ -104,8 +106,8 @@ class ImageGallery extends Component {
         if (status === "resolved") {
             return (
               <div className="conteinGallery">
-                <ul className="ImageGallery">
-                        <ImageGalleryItem Array={rezSearch} onClick={this.showImage}/>
+                    <ul className="ImageGallery">
+                        {rezSearch.map(({ id, webformatURL }) => { return <ImageGalleryItem key={id} webformatURL={webformatURL} id={id} onClick={this.showImage}/>})}
                 </ul>
                 <button className="Button" onClick={this.loadMore}>Загрузить еще</button>
                     {showModal && <Modal onClose={this.toggleModal} onList={this.listImgModal}><img src={ rezSearch[activeImgIndex].largeImageURL} alt="" /></Modal>}

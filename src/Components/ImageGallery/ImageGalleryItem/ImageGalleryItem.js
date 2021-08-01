@@ -1,23 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ImageGalleryItem = ({ Array, onClick }) => (
-    Array.map(
-        ({id , webformatURL , type}) => {
-            return(
-            <li key={id} className="ImageGalleryItem">
-                    <img src={webformatURL} alt={type} className="ImageGalleryItem-image" onClick={() => onClick(id)}/>
-            </li>)
-        }
-    )
+const ImageGalleryItem =  ({id , webformatURL , onClick}) => (
+            <li  className="ImageGalleryItem">
+               <img src={webformatURL} id={id} alt="" className="ImageGalleryItem-image" onClick={onClick}/>
+            </li>
 );
 
 ImageGalleryItem.defaultProps = {
-   Array: []
+//    Array: []
  };
 
  ImageGalleryItem.propTypes = {
-    Array: PropTypes.array,
+    // Array: PropTypes.array,
     onClick: PropTypes.func,
 };
 
