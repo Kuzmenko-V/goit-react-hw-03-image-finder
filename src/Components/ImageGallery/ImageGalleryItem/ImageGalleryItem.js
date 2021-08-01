@@ -7,12 +7,9 @@ const ImageGalleryItem =  ({id , webformatURL , onClick}) => (
             </li>
 );
 
-ImageGalleryItem.defaultProps = {
-//    Array: []
- };
-
  ImageGalleryItem.propTypes = {
-    // Array: PropTypes.array,
+    id: PropTypes.number,
+    webformatURL: PropTypes.string,
     onClick: PropTypes.func,
 };
 
